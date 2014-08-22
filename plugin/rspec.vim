@@ -19,6 +19,11 @@ if !exists("g:cucumber_command")
   let g:cucumber_command = "!clear && echo " . s:cmd . " && " . s:cmd
 endif
 
+if !exists("g:konacha_command")
+  let s:cmd = "spring rake konacha:run SPEC={spec}"
+  let g:konacha_command = "!clear && echo " . s:cmd . " && " . s:cmd
+endif
+
 function! RunAllSpecs()
   let l:spec = "spec"
   call SetLastSpecCommand(l:spec)
@@ -26,7 +31,7 @@ function! RunAllSpecs()
 endfunction
 
 function! RunCurrentSpecFile()
-  if InSpecFile()
+  if InSpecFile() || InCucumberFile() || InJsSpec()
     let l:spec = @%
     call SetLastSpecCommand(l:spec)
     call RunSpecs(l:spec)
@@ -36,7 +41,7 @@ function! RunCurrentSpecFile()
 endfunction
 
 function! RunNearestSpec()
-  if InSpecFile()
+  if InSpecFile() || InCucumberFile() || InJsSpec()
     let l:spec = @% . ":" . line(".")
     call SetLastSpecCommand(l:spec)
     call RunSpecs(l:spec)
@@ -52,11 +57,15 @@ function! RunLastSpec()
 endfunction
 
 function! InSpecFile()
-  return match(expand("%"), "_spec.rb$") != -1 || match(expand("%"), ".feature$") != -1
+  return match(expand("%"), "_spec.rb$") != -1
 endfunction
 
 function! InCucumberFile()
   return match(expand("%"), ".feature$") != -1
+endfunction
+
+function! InJsSpec()
+  return match(expand("%"), "_spec.js.coffee$") != -1
 endfunction
 
 function! SetLastSpecCommand(spec)
@@ -64,7 +73,10 @@ function! SetLastSpecCommand(spec)
 endfunction
 
 function! RunSpecs(spec)
-  if InCucumberFile()
+  if InJsSpec()
+    let filename_for_spec = substitute(a:spec, "spec/javascripts/", "", "")
+    execute substitute(g:konacha_command, "{spec}", filename_for_spec, "g")
+  elseif InCucumberFile()
     execute substitute(g:cucumber_command, "{spec}", a:spec, "g")
   else
     execute substitute(g:rspec_command, "{spec}", a:spec, "g")
