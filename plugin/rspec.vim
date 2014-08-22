@@ -5,15 +5,18 @@ if !exists("g:rspec_runner")
 endif
 
 if !exists("g:rspec_command")
-  let s:cmd = "rspec {spec}"
+  let s:cmd = "bin/rspec {spec}"
 
   if has("gui_running") && has("gui_macvim")
     let g:rspec_command = "silent !" . s:plugin_path . "/bin/" . g:rspec_runner . " '" . s:cmd . "'"
-  elseif has("win32") && fnamemodify(&shell, ':t') ==? "cmd.exe"
-    let g:rspec_command = "!cls && echo " . s:cmd . " && " . s:cmd
   else
     let g:rspec_command = "!clear && echo " . s:cmd . " && " . s:cmd
   endif
+endif
+
+if !exists("g:cucumber_command")
+  let s:cmd = "cucumber {spec}"
+  let g:cucumber_command = "!clear && echo " . s:cmd . " && " . s:cmd
 endif
 
 function! RunAllSpecs()
@@ -49,7 +52,11 @@ function! RunLastSpec()
 endfunction
 
 function! InSpecFile()
-  return match(expand("%"), "_spec.rb$") != -1
+  return match(expand("%"), "_spec.rb$") != -1 || match(expand("%"), ".feature$") != -1
+endfunction
+
+function! InCucumberFile()
+  return match(expand("%"), ".feature$") != -1
 endfunction
 
 function! SetLastSpecCommand(spec)
@@ -57,5 +64,9 @@ function! SetLastSpecCommand(spec)
 endfunction
 
 function! RunSpecs(spec)
-  execute substitute(g:rspec_command, "{spec}", a:spec, "g")
+  if InCucumberFile()
+    execute substitute(g:cucumber_command, "{spec}", a:spec, "g")
+  else
+    execute substitute(g:rspec_command, "{spec}", a:spec, "g")
+  endif
 endfunction
