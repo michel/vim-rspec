@@ -30,6 +30,10 @@ function! RunAllSpecs()
   call RunSpecs(l:spec)
 endfunction
 
+function! RestartSpring()
+    execute "!clear && echo spring stop && spring stop"
+endfunction
+
 function! RunCurrentSpecFile()
   if InSpecFile() || InCucumberFile() || InJsSpec()
     let l:spec = @%
