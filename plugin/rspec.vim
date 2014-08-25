@@ -15,7 +15,7 @@ if !exists("g:rspec_command")
 endif
 
 if !exists("g:cucumber_command")
-  let s:cmd = "cucumber {spec}"
+  let s:cmd = "bin/cucumber {spec}"
   let g:cucumber_command = "!clear && echo " . s:cmd . " && " . s:cmd
 endif
 
