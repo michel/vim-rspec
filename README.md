@@ -1,13 +1,18 @@
-# rspec.vim
+# vim-spec.vim
 
-This is a lightweight RSpec runner for Vim and MacVim.
+This is a lightweight Spec runner for Vim and MacVim.
+
+It includes:
+  * rspec
+  * cucumber
+  * konacha
 
 ## Installation
 
 Recommended installation with [vundle](https://github.com/gmarik/vundle):
 
 ```vim
-Bundle 'thoughtbot/vim-rspec'
+Plugin 'michel/vim-spec'
 ```
 
 If using zsh on OS X it may be necessary to move `/etc/zshenv` to `/etc/zshrc`.
@@ -24,6 +29,7 @@ map <Leader>t :call RunCurrentSpecFile()<CR>
 map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
 map <Leader>a :call RunAllSpecs()<CR>
+map <Leader>rs :call RestartSpring()<CR>
 ```
 
 ### Custom command
@@ -70,19 +76,8 @@ let g:rspec_runner = "os_x_iterm"
 
 Credits
 -------
+ Jeroen Knoops
+ Michel de Graaf
 
-![thoughtbot](http://thoughtbot.com/images/tm/logo.png)
+ Thoughtbot
 
-rspec.vim is maintained by [thoughtbot, inc](http://thoughtbot.com/community)
-and [contributors](https://github.com/thoughtbot/vim-rspec/graphs/contributors)
-like you. Thank you!
-
-It was strongly influenced by Gary Bernhardt's [Destroy All
-Software](https://www.destroyallsoftware.com/screencasts) screencasts.
-
-## License
-
-rspec.vim is copyright © 2014 thoughtbot. It is free software, and may be
-redistributed under the terms specified in the `LICENSE` file.
-
-The names and logos for thoughtbot are trademarks of thoughtbot, inc.
