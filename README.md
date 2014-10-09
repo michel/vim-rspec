@@ -34,7 +34,7 @@ map <Leader>rs :call RestartSpring()<CR>
 
 ### Custom command
 
-Overwrite the `g:rspec_command` variable to execute a custom command.
+Overwrite the `g:rspec_command` variable to execute a custom command. The same applies to `g:konacha_command` and `g:cucumber_command`
 
 Example:
 
@@ -54,6 +54,14 @@ Or, [Dispatch](https://github.com/tpope/vim-dispatch) and
 
 ```vim
 let g:rspec_command = "compiler rspec | set makeprg=zeus | Make rspec {spec}"
+```
+
+### Spring examples
+
+```vim
+let g:rspec_command = "bin/rspec {spec}"
+let g:cucumber_command = "bin/cucumber {spec}"
+let g:konacha_command = "spring rake konacha:run SPEC={spec}"
 ```
 
 ### Custom runners

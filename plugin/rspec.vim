@@ -5,7 +5,7 @@ if !exists("g:rspec_runner")
 endif
 
 if !exists("g:rspec_command")
-  let s:cmd = "bin/rspec {spec}"
+  let s:cmd = "rspec {spec}"
 
   if has("gui_running") && has("gui_macvim")
     let g:rspec_command = "silent !" . s:plugin_path . "/bin/" . g:rspec_runner . " '" . s:cmd . "'"
@@ -15,12 +15,12 @@ if !exists("g:rspec_command")
 endif
 
 if !exists("g:cucumber_command")
-  let s:cmd = "bin/cucumber {spec}"
+  let s:cmd = "cucumber {spec}"
   let g:cucumber_command = "!clear && echo " . s:cmd . " && " . s:cmd
 endif
 
 if !exists("g:konacha_command")
-  let s:cmd = "spring rake konacha:run SPEC={spec}"
+  let s:cmd = "rake konacha:run SPEC={spec}"
   let g:konacha_command = "!clear && echo " . s:cmd . " && " . s:cmd
 endif
 
