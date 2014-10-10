@@ -5,23 +5,22 @@ if !exists("g:rspec_runner")
 endif
 
 if !exists("g:rspec_command")
-  let s:cmd = "rspec {spec}"
-
+  let l:cmd = "rspec {spec}"
   if has("gui_running") && has("gui_macvim")
-    let g:rspec_command = "silent !" . s:plugin_path . "/bin/" . g:rspec_runner . " '" . s:cmd . "'"
+    let g:rspec_command = "silent !" . s:plugin_path . "/bin/" . g:rspec_runner . " '" . l:cmd . "'"
   else
-    let g:rspec_command = "!clear && echo " . s:cmd . " && " . s:cmd
+    let g:rspec_command = "!clear && echo " . l:cmd . " && " . l:cmd
   endif
 endif
 
 if !exists("g:cucumber_command")
-  let s:cmd = "cucumber {spec}"
-  let g:cucumber_command = "!clear && echo " . s:cmd . " && " . s:cmd
+  let l:cmd = "cucumber {spec}"
+  let g:cucumber_command = "!clear && echo " . l:cmd . " && " . l:cmd
 endif
 
 if !exists("g:konacha_command")
-  let s:cmd = "rake konacha:run SPEC={spec}"
-  let g:konacha_command = "!clear && echo " . s:cmd . " && " . s:cmd
+  let l:cmd = "rake konacha:run SPEC={spec}"
+  let g:konacha_command = "!clear && echo " . l:cmd . " && " . l:cmd
 endif
 
 function! RunAllSpecs()
