@@ -59,9 +59,9 @@ let g:rspec_command = "compiler rspec | set makeprg=zeus | Make rspec {spec}"
 ### Spring examples
 
 ```vim
-let g:rspec_command = "bin/rspec {spec}"
-let g:cucumber_command = "bin/cucumber {spec}"
-let g:konacha_command = "spring rake konacha:run SPEC={spec}"
+let g:rspec_command = "!clear && bin/rspec {spec}"
+let g:cucumber_command = "!clear && bin/cucumber {spec}"
+let g:konacha_command = "!clear && spring rake konacha:run SPEC={spec}"
 ```
 
 ### Custom runners
